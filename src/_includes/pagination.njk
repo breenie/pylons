@@ -1,0 +1,11 @@
+<div class="nav-wrapper">
+  <nav>
+    {% if pagination.href.previous %}
+      <a role="button" href="{{ pagination.href.previous }}">&larr; Previous</a>
+    {% endif %}
+
+    {% if pagination.href.next %}
+      <a role="button" href="{{ pagination.href.next }}">Next &rarr;</a>
+    {% endif %}
+  </nav>
+</div>

@@ -22,15 +22,9 @@ eleventyComputed:
 </div>
 
 <div class="container-fluid">
-<img src="{{ site.image_cdn }}{{ Key }}" alt="{{ image.alt }}" style="max-width:100%">
-
-<nav>
-  {% if pagination.href.previous %}
-    <a href="{{ pagination.href.previous }}">&larr; Previous</a>
-  {% endif %}
-
-  {% if pagination.href.next %}
-    <a href="{{ pagination.href.next }}">Next &rarr;</a>
-  {% endif %}
-</nav>
+  <article>
+  <img src="{{ site.image_cdn }}{{ Key }}" alt="{{ image.alt }}" class="responsive-image">
+  </article>
+  {% include "pagination.njk" %}
 </div>
+

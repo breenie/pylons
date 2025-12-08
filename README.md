@@ -7,7 +7,7 @@ Webcam image archive of the [Lake District Ski Club](https://www.https://www.lds
 ```
 npm ci
 npm run dump:data
-npm build:css
+npm run build:css
 npx @11ty/eleventy --serve --watch
 # Visit http://localhost:8080/
 ```

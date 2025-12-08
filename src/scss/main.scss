@@ -31,3 +31,23 @@ h1 a {
   height: auto;
   display: block;
 }
+
+.responsive-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto; /* center if container is wider */
+}
+
+.nav-wrapper {
+  display: block;
+  max-width: fit-content; /* shrink to fit the content/image width */
+  margin: 0 auto; /* center below the image */
+  text-align: center; /* center buttons inside */
+  padding-top: 0.5rem; /* optional spacing above buttons */
+}
+
+.nav-wrapper a {
+  display: inline-block;
+  margin: 0 0.5rem; /* space between buttons */
+}

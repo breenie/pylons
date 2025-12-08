@@ -7,25 +7,24 @@ pagination:
 permalink: "{{ month.permalink }}/"
 eleventyComputed:
   title: "{{ month.camera.label }} Archive"
+  epoch: "{{ month.images[0].image.LastModified | date('yyyy') }}"
 ---
 
-
-
-<h1>{{ month.camera.label }} Archive for ((placeholder year))</h1>
+<h1>{{ month.camera.label }} Archive for {{ epoch }}</h1>
   <div class="grid">
 {% for image in month.images | reverse %}
 
-  <section>
     <article>
-      <div>
   
   <h2><a href="/{{ month.camera.id }}/{{ image.image.LastModified | date("yyyy/MM") }}/">{{ image.image.LastModified | date("MMMM") }}</a></h2>
   <a href="/{{ month.camera.id }}/{{ image.image.LastModified | date("yyyy/MM") }}/">
   <img src="{{ site.image_cdn }}{{ image.image.Key }}" alt="Latest image from {{ image.image.LastModified | date("yyyy/MM") }} for {{ month.camera.label }}">
   </a>
-      </div>
     </article>
-  </section>
 {% endfor %}
 
+</div>
+
+<div class="container-fluid">
+  {% include "pagination.njk" %}
 </div>
