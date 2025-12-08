@@ -1,0 +1,51 @@
+---
+title: LDSC webcam archive
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <link rel="manifest" href="/img/site.webmanifest">
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    <header class="container-fluid">
+      <hgroup>
+        <h1><a href="/"><mark>{{site.name}}</mark></a></h1>
+        <p>{{site.description}}</p>
+      </hgroup>
+      <nav>
+        <ul>
+          <li>
+            <details class="dropdown">
+              <summary role="button" class="secondary">Theme</summary>
+              <ul>
+                <li><a href="#" data-theme-switcher="auto">Auto</a></li>
+                <li><a href="#" data-theme-switcher="light">Light</a></li>
+                <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+
+    <main id="content" class="container-fluid">
+      {{ content | safe }}
+    </main>
+
+    <footer class="container-fluid">
+  <small>Made in Sunny Lancashire 🌞</small>
+</footer>
+
+    <!-- Minimal theme switcher -->
+    <script src="/js/minimal-theme-switcher.js"></script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+---
+layout: base.njk
+pagination:
+  data: minutes
+  size: 1
+  alias: item
+permalink: "{{ item.permalink }}/"
+eleventyComputed:
+  title: "{{ item.camera.label }} Archive"
+---
+
+
+
+<h1>{{ item.camera.label }} Archive for ((placeholder day))</h1>
+  <div class="grid">
+{% for image in item.images | reverse %}
+
+  <section>
+    <article>
+      <div class="day">
+  
+  <h2><a href="/{{ item.camera.id }}/{{ image.image.LastModified | date("yyyy/MM/dd/HHmm") }}/">{{ image.image.LastModified | date("HH:mm:ss") }}</a></h2>
+  <a href="/{{ item.camera.id }}/{{ image.image.LastModified | date("yyyy/MM/dd/HHmm") }}/">
+  <img src="{{ site.image_cdn }}{{ image.image.Key }}" alt="Latest image from {{ image.image.LastModified | date("yyyy/MM/dd") }} for {{ item.camera.label }}">
+  </a>
+      </div>
+    </article>
+  </section>
+{% endfor %}
+
+</div>

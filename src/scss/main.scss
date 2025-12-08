@@ -1,0 +1,33 @@
+@use "../../node_modules/@picocss/pico/scss" with (
+  $theme-color: "lime"
+);
+
+mark {
+  padding: 0;
+  background: linear-gradient(
+    to left,
+    rgb(68, 161, 231),
+    rgb(57, 197, 187),
+    rgb(63, 227, 138),
+    rgb(246, 206, 66)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+h1 a {
+  text-decoration: none;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.grid img {
+  width: 100%;
+  height: auto;
+  display: block;
+}

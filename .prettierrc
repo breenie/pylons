@@ -1,0 +1,12 @@
+{
+  "semi": true,
+  "singleQuote": false,
+  "trailingComma": "none",
+  "useTabs": false,
+  "overrides": [
+    {
+      "files": "src/**/*.njk",
+      "options": { "parser": "nunjucks-prettier" }
+    }
+  ]
+}

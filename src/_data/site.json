@@ -1,0 +1,6 @@
+{
+  "name": "LDSC webcam archive",
+  "description": "Pictures of a rarely changing landscape with the occasional sheep 🐑.",
+  "image_cdn": "https://d18tbpo1ghbvqy.cloudfront.net/",
+  "cameras": [{ "id": "tow-hut", "label": "Tow Hut", "pattern": ".+\\.jpg$" }]
+}

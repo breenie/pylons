@@ -1,0 +1,36 @@
+---
+layout: base.njk
+pagination:
+  data: images
+  size: 1
+  alias: item
+permalink: "{{ item.permalink }}/"
+eleventyComputed:
+  LastModified: "{{ item.images[0].image.LastModified }}"
+  Key: "{{ item.images[0].image.Key }}"
+  cameraId: "{{ item.images[0].camera.id }}"
+  cameraLabel: "{{ item.images[0].camera.label }}"
+  title: "{{ item.images[0].camera.label }} Image from {{ item.images[0].image.LastModified | date('yyyy-MM-dd HH:mm') }}"
+---
+
+<div class="breadcrumbs">
+<a href="/{{ cameraId }}/">{{ cameraLabel }}</a> /
+<a href="/{{ cameraId }}/{{ LastModified | date('yyyy') }}">{{ LastModified | date('yyyy') }}</a> /
+<a href="/{{ cameraId }}/{{ LastModified | date('yyyy/MM') }}">{{ LastModified | date('MM') }}</a> /
+<a href="/{{ cameraId }}/{{ LastModified | date('yyyy/MM/dd') }}">{{ LastModified | date('dd') }}</a> /
+{{ LastModified | date("HH:mm:ss") }} 
+</div>
+
+<div class="container-fluid">
+<img src="{{ site.image_cdn }}{{ Key }}" alt="{{ image.alt }}" style="max-width:100%">
+
+<nav>
+  {% if pagination.href.previous %}
+    <a href="{{ pagination.href.previous }}">&larr; Previous</a>
+  {% endif %}
+
+  {% if pagination.href.next %}
+    <a href="{{ pagination.href.next }}">Next &rarr;</a>
+  {% endif %}
+</nav>
+</div>

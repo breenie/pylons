@@ -1,0 +1,25 @@
+{
+  "name": "pylons",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dump:data": "node ./bin/console.js dump -o data/images.json",
+    "build:css": "sass src/scss/main.scss src/css/main.css --no-source-map --style=compressed",
+    "watch:css": "sass --watch src/scss/main.scss:src/css/main.css --style=expanded",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@11ty/eleventy": "3.1.2",
+    "@aws-sdk/client-s3": "3.943.0",
+    "@picocss/pico": "2.1.1",
+    "args": "5.0.3",
+    "luxon": "3.7.2"
+  },
+  "devDependencies": {
+    "sass": "1.94.2"
+  }
+}

@@ -1,0 +1,31 @@
+---
+layout: base.njk
+pagination:
+  data: years
+  size: 1
+  alias: year
+permalink: "{{ year.camera.id }}/"
+eleventyComputed:
+  title: "{{ year.camera.label }} Archive"
+---
+
+
+
+<h1>{{ year.camera.label }} Archive</h1>
+  <div class="grid">
+{% for image in year.images | sort %}
+
+  <section>
+    <article>
+      <div>
+  
+  <h2><a href="/{{ year.camera.id }}/{{ image.image.LastModified | date("yyyy") }}/">{{ image.image.LastModified | date("yyyy") }}</a></h2>
+  <a href="/{{ year.camera.id }}/{{ image.image.LastModified | date("yyyy") }}/">
+  <img src="{{ site.image_cdn }}{{ image.image.Key }}" alt="Latest image from {{ image.image.LastModified | date("yyyy") }} for {{ year.camera.label }}">
+  </a>
+      </div>
+    </article>
+  </section>
+{% endfor %}
+
+</div>
