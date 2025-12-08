@@ -10,9 +10,9 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-access-key-id: ${{ vars.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+          aws-region: ${{ vars.AWS_DEFAULT_REGION }}
 
       # Uncomment if you want to specify a certain
       # Node version. Otherwise the Node version installed
@@ -37,4 +37,4 @@ jobs:
 
       - name: Upload files to S3 with AWS CLI
         run: |
-          aws s3 sync _site/ s3://${{ secrets.BUCKET }} --delete
+          aws s3 sync _site/ s3://${{ vars.BUCKET }} --delete
