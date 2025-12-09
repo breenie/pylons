@@ -1,0 +1,105 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: S3 Website + CloudFront Distribution with Custom Domain
+
+Parameters:
+  CertificateArn:
+    Type: String
+    Description: ACM Certificate ARN for www.ldsc.uk
+
+Resources:
+  Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: www.ldsc.uk
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: index.html
+
+  BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref Bucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: PublicReadGetObject
+            Effect: Allow
+            Principal: "*"
+            Action: s3:GetObject
+            Resource: !Sub "arn:aws:s3:::${Bucket}/*"
+
+  CloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        Aliases:
+          - www.ldsc.uk
+        DefaultRootObject: index.html
+        Origins:
+          - Id: S3WebsiteOrigin
+            DomainName: !Select
+              - 1
+              - !Split ["//", !GetAtt [Bucket, WebsiteURL]]
+            CustomOriginConfig:
+              HTTPPort: 80
+              HTTPSPort: 443
+              OriginProtocolPolicy: http-only
+        DefaultCacheBehavior:
+          TargetOriginId: S3WebsiteOrigin
+          ViewerProtocolPolicy: redirect-to-https
+          ForwardedValues:
+            QueryString: false
+          AllowedMethods:
+            - GET
+            - HEAD
+          CachedMethods:
+            - GET
+            - HEAD
+        ViewerCertificate:
+          AcmCertificateArn: !Ref CertificateArn
+          SslSupportMethod: sni-only
+
+  DeploymentUser:
+    Type: AWS::IAM::User
+    Properties:
+      Path: "/"
+
+  DeploymentAccessKey:
+    Type: AWS::IAM::AccessKey
+    Properties:
+      UserName: !Ref DeploymentUser
+
+  DeploymentPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: !Sub ${AWS::StackName}-deployment
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: AllowDeploymentsToS3Bucket
+            Effect: Allow
+            Action:
+              - s3:PutObject
+              - s3:GetObject
+              - s3:ListBucket
+              - s3:DeleteObject
+              - s3:GetBucketLocation
+            Resource: !Sub "arn:aws:s3:::${Bucket}/*"
+
+      Users:
+        - !Ref DeploymentUser
+
+Outputs:
+  AccessKeyId:
+    Description: The deployment access key ID
+    Value: !Ref DeploymentAccessKey
+
+  SecretAccessKey:
+    Description: The deployment access key secret
+    Value: !GetAtt [DeploymentAccessKey, SecretAccessKey]
