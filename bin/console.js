@@ -5,6 +5,46 @@ const args = require("args");
 const { S3Client, ListObjectsV2Command } = require("@aws-sdk/client-s3");
 
 /**
+ * Parse date from S3 key
+ * @param {string} key The S3 object key
+ * @returns {Date|null} The parsed date or null if not found
+ */
+const keyToDate = (key) => {
+  const match = key.match(/__(\d{8})\.(\d{6})GMT/);
+
+  if (!match) {
+    return null;
+  }
+  const [_, date, time] = match;
+  const yyyy = date.substr(0, 4);
+  const MM = date.substr(4, 2);
+  const dd = date.substr(6, 2);
+  const hh = time.substr(0, 2);
+  const mm = time.substr(2, 2);
+  const ss = time.substr(4, 2);
+
+  return new Date(`${yyyy}-${MM}-${dd}T${hh}:${mm}:${ss}Z`);
+};
+
+/**
+ * Just in case some dickhead pushes 1,000s in one go.
+ * @param {Object} img The image object from S3
+ * @returns {Object} The corrected image object
+ */
+const correctDriftedModified = (img) => {
+  const driftThresholdMs = 5 * 60 * 1000; // 5 minutes
+  const parsed = keyToDate(img.Key);
+
+  if (
+    parsed &&
+    Math.abs(parsed - new Date(img.LastModified)) > driftThresholdMs
+  ) {
+    img.LastModified = parsed.toISOString();
+  }
+  return img;
+};
+
+/**
  * Debug an 11ty data file by running it and outputting the result as JSON.
  * @param {string} name The name of the command
  * @param {string} sub The sub-command name
@@ -65,7 +105,16 @@ const getImageList = async (name, sub, options) => {
   const output = path.normalize(path.join(__dirname, "../", options.output));
 
   fs.mkdirSync(path.dirname(output), { recursive: true });
-  fs.writeFileSync(output, JSON.stringify(results, null, 2));
+  fs.writeFileSync(
+    output,
+    JSON.stringify(
+      results
+        .map(correctDriftedModified)
+        .sort((a, b) => new Date(b.LastModified) - new Date(a.LastModified)),
+      null,
+      2
+    )
+  );
 
   console.log(`Wrote ${results.length} records to ${output}`);
 };

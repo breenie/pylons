@@ -6,20 +6,6 @@ module.exports = function (eleventyConfig) {
   // Pass through images (optional if using S3)
   //eleventyConfig.addPassthroughCopy("src/images");
 
-  // Collections per pylon
-  const { cameras: pylons } = require("./src/_data/site.json");
-  pylons.forEach(({ id, ...pylon }) => {
-    eleventyConfig.addCollection(`pylon${id}`, function (collectionApi) {
-      const data = require(`./data/images.json`);
-
-      return data
-        .sort((a, b) => new Date(a.LastModified) - new Date(b.LastModified))
-        .map((item) => ({
-          data: item // becomes item.data in templates
-        }));
-    });
-  });
-
   ["src/css", "src/js", "src/img"].forEach((path) => {
     eleventyConfig.addPassthroughCopy(path);
   });
