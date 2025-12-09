@@ -23,10 +23,14 @@ const createPermalink = ({ camera, image }, format) => {
  * @returns {Array} Processed image data
  */
 const getData = (format) => {
-  const everything = images.sort(sort).map((image) => ({
+  let everything = images.map((image) => ({
     image,
     camera: cameras.find((c) => image.Key.match(new RegExp(c.pattern)))
   }));
+
+  if (process.env.PYLONS_DATA_SLICE) {
+    everything = everything.slice(0, Number(process.env.PYLONS_DATA_SLICE));
+  }
 
   const collection = everything.reduce((acc, item) => {
     const id = createPermalink(item, format);
