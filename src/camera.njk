@@ -9,11 +9,9 @@ eleventyComputed:
   title: "{{ year.camera.label }} Archive"
 ---
 
-
-
 <h1>{{ year.camera.label }} Archive</h1>
   <div class="grid">
-{% for image in year.images | sort %}
+{% for image in year.images %}
 
   <section>
     <article>
@@ -21,7 +19,7 @@ eleventyComputed:
   
   <h2><a href="/{{ year.camera.id }}/{{ image.image.LastModified | date("yyyy") }}/">{{ image.image.LastModified | date("yyyy") }}</a></h2>
   <a href="/{{ year.camera.id }}/{{ image.image.LastModified | date("yyyy") }}/">
-  <img src="{{ site.image_cdn }}{{ image.image.Key }}" alt="Latest image from {{ image.image.LastModified | date("yyyy") }} for {{ year.camera.label }}">
+  <img src="{{ site.image_cdn }}{{ image.image.Key }}" alt="Latest image from {{ image.image.LastModified | date("yyyy") }} for {{ year.camera.label }}" class="thumb thumb-lrg">
   </a>
       </div>
     </article>

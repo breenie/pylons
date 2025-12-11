@@ -10,7 +10,7 @@ title: Webcam Archive
       <div>
         <h2><a href="/{{ camera.camera.id }}/">{{ camera.camera.label }}</a></h2>
         <a href="/{{ camera.camera.id }}/{{ camera.images[0].image.LastModified | date("yyyy/MM/dd/HHmm") }}/">
-          <img src="{{ site.image_cdn }}{{ camera.images[0].image.Key }}" alt="{{ camera.images[0].image.Key }}">
+          <img src="{{ site.image_cdn }}{{ camera.images[0].image.Key }}" alt="{{ camera.images[0].image.Key }}" class="responsive-image">
         </a>
         <p><small>{{ camera.images[0].image.LastModified | date("yyyy-MM-dd HH:mm") }}</small></p>
     </div>

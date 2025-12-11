@@ -1,4 +1,5 @@
-const { getData } = require("../images");
+const { getData, reverseImages } = require("../images");
+
 module.exports = () => {
-  return getData("yyyy/MM/dd/HHmm");
+  return getData("yyyy/MM/dd/HHmm").map(reverseImages).reverse();
 };
