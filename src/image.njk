@@ -23,7 +23,7 @@ eleventyComputed:
 
 <div class="container-fluid">
   <article>
-  <img src="{{ site.image_cdn }}{{ Key }}" alt="{{ image.alt }}" class="responsive-image">
+  <img src="{{ site.image_cdn }}{{ Key }}" class="responsive-image" alt="Image from {{cameraLabel }} on {{ LastModified | date("yyyy/MM/dd HH:mm:ss") }} ">
   </article>
   {% include "pagination.njk" %}
 </div>

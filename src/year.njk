@@ -18,7 +18,7 @@ eleventyComputed:
   
   <h2><a href="/{{ month.camera.id }}/{{ image.image.LastModified | date("yyyy/MM") }}/">{{ image.image.LastModified | date("MMMM") }}</a></h2>
   <a href="/{{ month.camera.id }}/{{ image.image.LastModified | date("yyyy/MM") }}/">
-  <img src="{{ site.image_cdn }}{{ image.image.Key }}" alt="Latest image from {{ image.image.LastModified | date("yyyy/MM") }} for {{ month.camera.label }}">
+  <img src="{{ site.image_cdn }}{{ image.image.Key }}" alt="Latest image from {{ image.image.LastModified | date("yyyy/MM") }} for {{ month.camera.label }}" class="thumb thumb-lrg">
   </a>
     </article>
 {% endfor %}

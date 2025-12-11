@@ -20,23 +20,12 @@ h1 a {
   text-decoration: none;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-}
-
-.grid img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
 .responsive-image {
   display: block;
   max-width: 100%;
   height: auto;
   margin: 0 auto; /* center if container is wider */
+  border-radius: 4px;
 }
 
 .nav-wrapper {
@@ -50,4 +39,35 @@ h1 a {
 .nav-wrapper a {
   display: inline-block;
   margin: 0 0.5rem; /* space between buttons */
+}
+
+.thumb {
+  display: block;
+  object-fit: cover;
+  margin: 0.25rem;
+  border-radius: 4px;
+}
+
+.grid img.thumb-sml {
+  width: 170px;
+}
+
+.grid img.thumb-lrg {
+  width: 400px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+grid img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.grid h2 {
+  text-wrap: nowrap;
 }

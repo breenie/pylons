@@ -1,7 +1,7 @@
+const { DateTime } = require("luxon");
 const { cameras } = require("./_data/site.json");
 const images = require("../data/images.json");
 const sort = (a, b) => new Date(b.LastModified) - new Date(a.LastModified);
-const { DateTime } = require("luxon");
 
 /**
  * Create a permalink for an image based on camera and date format
@@ -16,6 +16,16 @@ const createPermalink = ({ camera, image }, format) => {
     DateTime.fromJSDate(new Date(image.LastModified)).toFormat(format)
   );
 };
+
+/**
+ * Sort function to reverse images in a page.
+ * @param {Object} param0 Page object containing images
+ * @returns {Object} Page object with reversed images
+ */
+const reverseImages = ({ images, ...page }) => ({
+  ...page,
+  images: images.reverse()
+});
 
 /**
  * Get processed image data
@@ -58,5 +68,6 @@ const getData = (format) => {
 };
 
 module.exports = {
-  getData
+  getData,
+  reverseImages
 };
