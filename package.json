@@ -20,6 +20,7 @@
     "luxon": "3.7.2"
   },
   "devDependencies": {
+    "rclone.js": "0.6.6",
     "sass": "1.94.2"
   }
 }
