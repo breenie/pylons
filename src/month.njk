@@ -3,22 +3,27 @@ layout: base.njk
 pagination:
   data: days
   size: 1
-  alias: item
-permalink: "{{ item.permalink }}/"
+  alias: day
+permalink: "{{ day.permalink }}/"
 eleventyComputed:
-  title: "{{ item.camera.label }} Archive for {{ item.images[0].image.LastModified | date('MMMM yyyy') }}"
-  epoch: "{{ item.images[0].image.LastModified | date('MMMM yyyy') }}"
+  title: "{{ day.camera.label }} Archive for {{ day.images[0].image.LastModified | date('MMMM yyyy') }}"
+  breadcrumbs:
+    - url: "/{{ day.camera.id }}/"
+      text: "{{ day.camera.label }}"
+    - url: "/{{ day.camera.id }}/{{ day.images[0].image.LastModified | date('yyyy') }}/"
+      text: "{{ day.images[0].image.LastModified | date('yyyy') }}"
+    - text: "{{ day.images[0].image.LastModified | date('MM') }}"
 ---
 
-<h1>{{ item.camera.label }} Archive for {{ epoch }}</h1>
+<h1>{{ day.camera.label }} Archive for {{ day.images[0].image.LastModified | date('MMMM yyyy') }}</h1>
   <div class="grid">
-{% for image in item.images %}
+{% for image in day.images %}
 
     <article>
   
-  <h2><a href="/{{ item.camera.id }}/{{ image.image.LastModified | date("yyyy/MM/dd") }}/">{{ image.image.LastModified | date("dd") }}</a></h2>
-  <a href="/{{ item.camera.id }}/{{ image.image.LastModified | date("yyyy/MM/dd") }}/">
-  <img src="{{ site.image_cdn }}{{ image.image.Key }}" alt="Image from {{ image.image.LastModified | date("yyyy/MM/dd") }} for {{ item.camera.label }}" class="thumb thumb-sml">
+  <h2><a href="/{{ day.camera.id }}/{{ image.image.LastModified | date("yyyy/MM/dd") }}/">{{ image.image.LastModified | date("dd") }}</a></h2>
+  <a href="/{{ day.camera.id }}/{{ image.image.LastModified | date("yyyy/MM/dd") }}/">
+  <img src="{{ site.image_cdn }}{{ image.image.Key }}" alt="Image from {{ image.image.LastModified | date("yyyy/MM/dd") }} for {{ day.camera.label }}" class="thumb thumb-sml">
   </a>
     </article>
 {% endfor %}

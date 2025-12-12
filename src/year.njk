@@ -8,6 +8,10 @@ permalink: "{{ month.permalink }}/"
 eleventyComputed:
   title: "{{ month.camera.label }} Archive"
   epoch: "{{ month.images[0].image.LastModified | date('yyyy') }}"
+  breadcrumbs:
+    - url: "/{{ month.camera.id }}/"
+      text: "{{ month.camera.label }}"
+    - text: "{{ month.images[0].image.LastModified | date('yyyy') }}"
 ---
 
 <h1>{{ month.camera.label }} Archive for {{ epoch }}</h1>

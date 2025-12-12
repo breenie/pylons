@@ -3,21 +3,28 @@ layout: base.njk
 pagination:
   data: minutes
   size: 1
-  alias: item
-permalink: "{{ item.permalink }}/"
+  alias: minute
+permalink: "{{ minute.permalink }}/"
 eleventyComputed:
-  title: "{{ item.camera.label }} Archive for {{ item.images[0].image.LastModified | date('DDDD') }}"
-  epoch: "{{ item.images[0].image.LastModified | date('DDDD') }}"
+  title: "{{ minute.camera.label }} Archive for {{ minute.images[0].image.LastModified | date('DDDD') }}"
+  epoch: "{{ minute.images[0].image.LastModified | date('DDDD') }}"
+  breadcrumbs:
+    - url: "/{{ minute.camera.id }}/"
+      text: "{{ minute.camera.label }}"
+    - url: "/{{ minute.camera.id }}/{{ minute.images[0].image.LastModified | date('yyyy') }}/"
+      text: "{{ minute.images[0].image.LastModified | date('yyyy') }}"
+    - url: "/{{ minute.camera.id }}/{{ minute.images[0].image.LastModified | date('yyyy/MM') }}/"
+      text: "{{ minute.images[0].image.LastModified | date('MM') }}"
+    - text: "{{ minute.images[0].image.LastModified | date('dd') }}"
 ---
 
-
-<h1>{{ item.camera.label }} Archive for {{ epoch }}</h1>
+<h1>{{ minute.camera.label }} Archive for {{ epoch }}</h1>
   <div class="grid">
-{% for image in item.images %}
+{% for image in minute.images %}
     <article> 
-  <h2><a href="/{{ item.camera.id }}/{{ image.image.LastModified | date("yyyy/MM/dd/HHmm") }}/">{{ image.image.LastModified | date("HH:mm:ss") }}</a></h2>
-  <a href="/{{ item.camera.id }}/{{ image.image.LastModified | date("yyyy/MM/dd/HHmm") }}/">
-  <img src="{{ site.image_cdn }}{{ image.image.Key }}" alt="Image from {{ image.image.LastModified | date("yyyy/MM/dd") }} for {{ item.camera.label }}" class="thumb thumb-sml">
+  <h2><a href="/{{ minute.camera.id }}/{{ image.image.LastModified | date("yyyy/MM/dd/HHmm") }}/">{{ image.image.LastModified | date("HH:mm:ss") }}</a></h2>
+  <a href="/{{ minute.camera.id }}/{{ image.image.LastModified | date("yyyy/MM/dd/HHmm") }}/">
+  <img src="{{ site.image_cdn }}{{ image.image.Key }}" alt="Image from {{ image.image.LastModified | date("yyyy/MM/dd") }} for {{ minute.camera.label }}" class="thumb thumb-sml">
   </a>
     </article>
 {% endfor %}
