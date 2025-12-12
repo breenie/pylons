@@ -3,27 +3,28 @@ layout: base.njk
 pagination:
   data: images
   size: 1
-  alias: item
-permalink: "{{ item.permalink }}/"
+  alias: image
+permalink: "{{ image.permalink }}/"
 eleventyComputed:
-  LastModified: "{{ item.images[0].image.LastModified }}"
-  Key: "{{ item.images[0].image.Key }}"
-  cameraId: "{{ item.images[0].camera.id }}"
-  cameraLabel: "{{ item.images[0].camera.label }}"
-  title: "{{ item.images[0].camera.label }} Image from {{ item.images[0].image.LastModified | date('yyyy-MM-dd HH:mm') }}"
+  appleTouchIcon: "{{ site.image_cdn }}{{ image.images[0].image.Key }}"
+  title: "{{ image.images[0].camera.label }} Image from {{ image.images[0].image.LastModified | date('yyyy-MM-dd HH:mm') }}"
+  breadcrumbs:
+    - url: "/{{ image.images[0].camera.id }}/"
+      text: "{{ image.images[0].camera.label }}"
+    - url: "/{{ image.images[0].camera.id }}/{{ image.images[0].image.LastModified | date('yyyy') }}/"
+      text: "{{ image.images[0].image.LastModified | date('yyyy') }}"
+    - url: "/{{ image.images[0].camera.id }}/{{ image.images[0].image.LastModified | date('yyyy/MM') }}/"
+      text: "{{ image.images[0].image.LastModified | date('MM') }}"
+    - url: "/{{ image.images[0].camera.id }}/{{ image.images[0].image.LastModified | date('yyyy/MM/dd') }}/"
+      text: "{{ image.images[0].image.LastModified | date('dd') }}"
+    - text: "{{ image.images[0].image.LastModified | date('HH:mm:ss') }}"
 ---
-
-<div class="breadcrumbs">
-<a href="/{{ cameraId }}/">{{ cameraLabel }}</a> /
-<a href="/{{ cameraId }}/{{ LastModified | date('yyyy') }}">{{ LastModified | date('yyyy') }}</a> /
-<a href="/{{ cameraId }}/{{ LastModified | date('yyyy/MM') }}">{{ LastModified | date('MM') }}</a> /
-<a href="/{{ cameraId }}/{{ LastModified | date('yyyy/MM/dd') }}">{{ LastModified | date('dd') }}</a> /
-{{ LastModified | date("HH:mm:ss") }} 
-</div>
 
 <div class="container-fluid">
   <article>
-  <img src="{{ site.image_cdn }}{{ Key }}" class="responsive-image" alt="Image from {{cameraLabel }} on {{ LastModified | date("yyyy/MM/dd HH:mm:ss") }} ">
+    <img src="{{ site.image_cdn }}{{ image.images[0].image.Key }}" 
+         class="responsive-image" 
+         alt="Image from {{ image.images[0].camera.label }} on {{ image.images[0].image.LastModified | date("yyyy/MM/dd HH:mm:ss") }} ">
   </article>
   {% include "pagination.njk" %}
 </div>

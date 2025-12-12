@@ -1,5 +1,6 @@
 ---
 title: LDSC webcam archive
+appleTouchIcon: img/apple-touch-icon.png
 ---
 <!doctype html>
 <html lang="en">
@@ -7,7 +8,7 @@ title: LDSC webcam archive
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ appleTouchIcon }}">
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
@@ -20,6 +21,26 @@ title: LDSC webcam archive
         <h1><a href="/"><mark>{{site.name}}</mark></a></h1>
         <p>{{site.description}}</p>
       </hgroup>
+
+
+{% if breadcrumbs %}
+
+<nav>
+<ul class="breadcrumb">
+{% for entry in breadcrumbs %}
+  <li>
+    {% if entry.url %}
+    <a href="{{ entry.url }}">{{ entry.text }}</a>
+    {% else %}
+    {{ entry.text }}
+    {% endif %}
+  </li>
+{% endfor %}
+</ul>
+</nav>
+{% endif %}
+
+
       <nav>
         <ul>
           <li>
